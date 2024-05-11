@@ -40,6 +40,8 @@
 								<include>com/cryptomorin/xseries/XMaterial*</include>
 								<include>com/cryptomorin/xseries/XBlock*</include>
 								<include>com/cryptomorin/xseries/XPotion*</include>
+								<include>com/cryptomorin/xseries/SkullUtils*</include>
+								<include>com/cryptomorin/xseries/ReflectionUtils*</include>
 							</includes>
 						</filter>
 					</filters>

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import org.bukkit.DyeColor;
 import org.bukkit.enchantments.Enchantment;
@@ -14,6 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import fr.skytasul.quests.api.utils.SkullUtils;
+
 import fr.skytasul.quests.api.QuestsAPI;
 import fr.skytasul.quests.api.QuestsConfiguration;
 import fr.skytasul.quests.api.QuestsPlugin;
@@ -57,8 +61,27 @@ public class PlayerListGUI extends PagedGUI<Quest> {
 		super.populate(player, inventory);
 
 		for (PlayerListCategory enabledCat : QuestsConfiguration.getConfig().getQuestsMenuConfig().getEnabledTabs()) {
-			setBarItem(enabledCat.getSlot(),
-					ItemUtils.item(enabledCat.getMaterial(), UNSELECTED_PREFIX + enabledCat.getName()));
+			//CompletableFuture.runAsync(() -> {
+				ItemStack it = ItemUtils.item(enabledCat.getMaterial(), UNSELECTED_PREFIX + enabledCat.getName());
+				switch(enabledCat){
+					case FINISHED:
+					it.setItemMeta(SkullUtils.applySkin(it.getItemMeta(),
+					"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2QxNjAwMDU5NDIzMjhlNzlmY2RkYjUzY2YwMTgwMzAxYWI5MTJhMjM4ODhmZWJlM2I5OWNkMGEyMjUzN2JmNyJ9fX0="));
+                        break;
+                    case IN_PROGRESS:
+					it.setItemMeta(SkullUtils.applySkin(it.getItemMeta(),
+					"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmYzYWQ1MDZiYTRkMGVhMzI2YTYzNTVmZjFkMWY5YjMxZjM0MDQwY2VlMGU4Y2RlYTZiZjE4ZDliZGY1ZDViOCJ9fX0="));
+                        break;
+                    case NOT_STARTED:
+					it.setItemMeta(SkullUtils.applySkin(it.getItemMeta(),
+					"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk4N2MwMDNlNTEyMDRhNmE4ZDZkYTcxMzUzZTBjOWM1MTY2YWVjMDNlZWQ5MzU3ZjcyZjM0ZmFhYThlOTNlYiJ9fX0="));
+                        break;
+				}
+				setBarItem(enabledCat.getSlot(), it);
+				//ItemUtils.item(enabledCat.getMaterial(), UNSELECTED_PREFIX + enabledCat.getName()));
+			//});
+			//setBarItem(enabledCat.getSlot(),
+			//		ItemUtils.item(enabledCat.getMaterial(), UNSELECTED_PREFIX + enabledCat.getName()));
 		}
 
 		if (PlayerListCategory.IN_PROGRESS.isEnabled()) {

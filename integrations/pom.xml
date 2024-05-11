@@ -115,7 +115,8 @@
 			<groupId>io.github.gonalez</groupId>
 			<artifactId>znpcs</artifactId>
 			<version>4.2</version>
-			<scope>provided</scope>
+			<systemPath>/workspaces/BeautyQuests/znpcs-4.6.jar</systemPath>
+			<scope>system</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.Pyrbu</groupId>
@@ -139,18 +140,6 @@
 			<groupId>me.clip</groupId>
 			<artifactId>placeholderapi</artifactId>
 			<version>2.11.3</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.gmail.filoghost.holographicdisplays</groupId>
-			<artifactId>holographicdisplays-api</artifactId>
-			<version>2.4.9</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>me.filoghost.holographicdisplays</groupId>
-			<artifactId>holographicdisplays-api</artifactId>
-			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -178,131 +167,15 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.promcteam</groupId>
-			<artifactId>proskillapi</artifactId>
-			<version>1.1.7.0.3</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.BlueMap-Minecraft</groupId>
-			<artifactId>BlueMapAPI</artifactId>
-			<version>v2.5.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.vk2gpz.tokenenchant</groupId>
-			<artifactId>TokenEnchantAPI</artifactId>
-			<version>18.37.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.github.decentsoftware-eu</groupId>
 			<artifactId>decentholograms</artifactId>
 			<version>2.8.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.lokka30</groupId>
-			<artifactId>LevelledMobs</artifactId>
-			<version>3.2.6</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.bgsoftware</groupId>
-			<artifactId>WildStackerAPI</artifactId>
-			<version>2022.6</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.LoneDev6</groupId>
-			<artifactId>api-itemsadder</artifactId>
-			<version>3.2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.Indyuce</groupId>
-			<artifactId>MMOItems-API</artifactId>
-			<version>6.9.4-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency> <!-- Required for MMOItems-API to compile -->
 			<groupId>io.lumine</groupId>
 			<artifactId>MythicLib-dist</artifactId>
 			<version>1.5.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Local JARs -->
-		<dependency>
-			<groupId>org.mineacademy</groupId>
-			<artifactId>boss</artifactId>
-			<version>4.2.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.songoda</groupId>
-			<artifactId>UltimateTimber</artifactId>
-			<version>2.3.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.dynmap</groupId>
-			<artifactId>dynmap</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.massivecraft</groupId>
-			<artifactId>factions</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.massivecraft</groupId>
-			<artifactId>massivecore</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.gamingmesh</groupId>
-			<artifactId>jobs</artifactId>
-			<version>5.1.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.gmail.mrphpfan</groupId>
-			<artifactId>mccombatlevel</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.gmail.nossr50</groupId>
-			<artifactId>mcmmo</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.suxy</groupId>
-			<artifactId>skillapi</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.zrips</groupId>
-			<artifactId>cmi</artifactId>
-			<version>9.0.2.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.zrips</groupId>
-			<artifactId>cmilib</artifactId>
-			<version>1.2.3.3</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>gcspawners</groupId>
-			<artifactId>gcspawners</artifactId>
-			<version>3.3.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

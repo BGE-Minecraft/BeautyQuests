@@ -3,6 +3,7 @@ package fr.skytasul.quests.api.gui.templates;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import org.apache.commons.lang.Validate;
@@ -15,6 +16,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 import fr.skytasul.quests.api.QuestsConfiguration;
 import fr.skytasul.quests.api.QuestsPlugin;
@@ -27,6 +30,7 @@ import fr.skytasul.quests.api.utils.LevenshteinComparator;
 
 /**
  * An inventory with an infinite amount of pages of 35 items (integer limit).
+ * 
  * @author SkytAsul
  *
  * @param <T> type of objects stocked in the inventory
@@ -59,7 +63,8 @@ public abstract class PagedGUI<T> extends AbstractGui {
 		this.color = color;
 		this.objects = new ArrayList<>(objects);
 		this.validate = validate;
-		if (searchName != null) this.comparator = new LevenshteinComparator<>(searchName);
+		if (searchName != null)
+			this.comparator = new LevenshteinComparator<>(searchName);
 
 		columns = QuestsConfiguration.getConfig().getGuiConfig().showVerticalSeparator() ? 7 : 8;
 		dataSlots = columns * 5;
@@ -74,11 +79,22 @@ public abstract class PagedGUI<T> extends AbstractGui {
 	protected void populate(@NotNull Player player, @NotNull Inventory inventory) {
 		this.player = player;
 		calcMaxPages();
-
-		setBarItem(0, QuestsPlugin.getPlugin().getGuiManager().getItemFactory().getPreviousPage());
-		setBarItem(4, QuestsPlugin.getPlugin().getGuiManager().getItemFactory().getNextPage());
-		if (validate != null) setBarItem(2, validationItem);
-		if (comparator != null) setBarItem(3, itemSearch);
+		//CompletableFuture.runAsync(() -> {
+			ItemStack prev = QuestsPlugin.getPlugin().getGuiManager().getItemFactory().getPreviousPage();
+			prev.setType(XMaterial.PLAYER_HEAD.parseMaterial());
+			prev.setItemMeta(SkullUtils.applySkin(prev.getItemMeta(),
+					"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzZlYmFhNDFkMWQ0MDVlYjZiNjA4NDViYjlhYzcyNGFmNzBlODVlYWM4YTk2YTU1NDRiOWUyM2FkNmM5NmM2MiJ9fX0="));
+			ItemStack next = QuestsPlugin.getPlugin().getGuiManager().getItemFactory().getNextPage();
+			next.setType(XMaterial.PLAYER_HEAD.parseMaterial());
+			next.setItemMeta(SkullUtils.applySkin(next.getItemMeta(),
+					"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODM5OWU1ZGE4MmVmNzc2NWZkNWU0NzJmMzE0N2VkMTE4ZDk4MTg4NzczMGVhN2JiODBkN2ExYmVkOThkNWJhIn19fQ=="));
+			setBarItem(0, prev);
+			setBarItem(4, next);
+		//});
+		if (validate != null)
+			setBarItem(2, validationItem);
+		if (comparator != null)
+			setBarItem(3, itemSearch);
 
 		displaySeparator();
 
@@ -93,10 +109,12 @@ public abstract class PagedGUI<T> extends AbstractGui {
 	}
 
 	public PagedGUI<T> setValidate(Consumer<List<T>> validate, ItemStack validationItem) {
-		if (this.validate != null) throw new IllegalStateException("A validation has already be added.");
+		if (this.validate != null)
+			throw new IllegalStateException("A validation has already be added.");
 		if (this.getInventory() != null)
 			throw new IllegalStateException("Cannot add a validation after inventory opening.");
-		if (validationItem == null) throw new IllegalArgumentException("Cannot set a null validation item.");
+		if (validationItem == null)
+			throw new IllegalArgumentException("Cannot set a null validation item.");
 		this.validate = validate;
 		this.validationItem = validationItem;
 		return this;
@@ -111,9 +129,11 @@ public abstract class PagedGUI<T> extends AbstractGui {
 	public <C extends Comparable<C>> PagedGUI<T> sortValues(Function<T, C> mapper) {
 		objects.sort((o1, o2) -> {
 			C map1;
-			if (o1 == null || (map1 = mapper.apply(o1)) == null) return 1;
+			if (o1 == null || (map1 = mapper.apply(o1)) == null)
+				return 1;
 			C map2;
-			if (o2 == null || (map2 = mapper.apply(o2)) == null) return -1;
+			if (o2 == null || (map2 = mapper.apply(o2)) == null)
+				return -1;
 			return map1.compareTo(map2);
 		});
 		return this;
@@ -147,7 +167,7 @@ public abstract class PagedGUI<T> extends AbstractGui {
 		}
 	}
 
-	private int setMainItem(int mainSlot, ItemStack is){
+	private int setMainItem(int mainSlot, ItemStack is) {
 		int line = (int) Math.floor(mainSlot * 1.0 / columns);
 		int slot = mainSlot + ((9 - columns) * line);
 		setItem(is, slot);
@@ -179,7 +199,7 @@ public abstract class PagedGUI<T> extends AbstractGui {
 	 * @param object T object to get the slot from
 	 * @return slot in the inventory, -1 if the object is on another page
 	 */
-	public int getObjectSlot(T object){
+	public int getObjectSlot(T object) {
 		int index = objects.indexOf(object);
 		if (index < page * dataSlots || index > (page + 1) * dataSlots)
 			return -1;
@@ -187,7 +207,6 @@ public abstract class PagedGUI<T> extends AbstractGui {
 		int line = (int) Math.floor(index * 1.0 / columns);
 		return index + ((9 - columns) * line) - page * dataSlots;
 	}
-
 
 	@Override
 	public void onClick(GuiClickEvent event) {
@@ -206,12 +225,14 @@ public abstract class PagedGUI<T> extends AbstractGui {
 	protected void barClick(GuiClickEvent event, int barSlot) {
 		switch (barSlot) {
 			case 0:
-				if (page == 0) break;
+				if (page == 0)
+					break;
 				page--;
 				setItems();
 				break;
 			case 4:
-				if (page+1 == maxPage) break;
+				if (page + 1 == maxPage)
+					break;
 				page++;
 				setItems();
 				break;
@@ -228,7 +249,7 @@ public abstract class PagedGUI<T> extends AbstractGui {
 					reopen();
 				}).start();
 				break;
-			}
+		}
 	}
 
 	public final void reopen() {
@@ -247,8 +268,9 @@ public abstract class PagedGUI<T> extends AbstractGui {
 
 	/**
 	 * Called when an object is clicked
-	 * @param existing clicked object
-	 * @param item item clicked
+	 * 
+	 * @param existing  clicked object
+	 * @param item      item clicked
 	 * @param clickType click type
 	 */
 	public abstract void click(@NotNull T existing, @NotNull ItemStack item, @NotNull ClickType clickType);

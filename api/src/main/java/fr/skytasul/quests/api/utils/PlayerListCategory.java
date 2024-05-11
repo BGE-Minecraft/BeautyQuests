@@ -11,17 +11,17 @@ public enum PlayerListCategory {
 
 	FINISHED(
 			1,
-			XMaterial.WRITTEN_BOOK,
+			XMaterial.PLAYER_HEAD,
 			Lang.finisheds.toString(),
 			DyeColor.GREEN),
 	IN_PROGRESS(
 			2,
-			XMaterial.BOOK,
+			XMaterial.PLAYER_HEAD,
 			Lang.inProgress.toString(),
 			DyeColor.YELLOW),
 	NOT_STARTED(
 			3,
-			XMaterial.WRITABLE_BOOK,
+			XMaterial.PLAYER_HEAD,
 			Lang.notStarteds.toString(),
 			DyeColor.RED);
 
